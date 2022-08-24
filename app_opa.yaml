@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: opa-service
+spec:
+  ports:
+  - name: backend-server-port-only
+    port: 5000
+    targetPort: 5000
+    protocol: TCP
+  # the selector is used to link pods to services
+  selector:
+    app: backend-server-app-only
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-server-only
+spec:
+  # all pods matching this selector belong to this deployment
+  selector:
+    matchLabels:
+      app: backend-server-app-only
+  template:
+    metadata:
+      # the other side of the link between services and pods
+      labels:
+        app: backend-server-app-only
+    spec:
+      containers:
+      - name: backend-server
+        image: gcr.io/nucloud-gcp8/lopc-iam/opa-test:latest
+        ports:
+        - containerPort: 5000

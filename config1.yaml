@@ -1,0 +1,16 @@
+services:
+  gcs:
+    url: https://storage.googleapis.com/nx-gcp-dev/shriram/lopc_iam_opa
+    credentials:
+      gcp_metadata:
+        scopes:
+          - https://www.googleapis.com/auth/devstorage.read_only
+
+bundles:
+  authz:
+    service: gcs
+    # NOTE ?alt=media is required
+    resource: 'bundle.tar.gz?alt=media'
+    polling:
+      min_delay_seconds: 30
+      max_delay_seconds: 60

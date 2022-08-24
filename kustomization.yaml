@@ -1,0 +1,13 @@
+configMapGenerator:
+- name: backend-envoy1
+  files:
+    - envoy1_new.yaml
+- name: backend-envoy2
+  files:
+    - envoy2_new.yaml
+- name: backend-opa-config1
+  files:
+    - config1.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
